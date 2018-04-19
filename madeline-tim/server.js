@@ -9,10 +9,10 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
-// const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
+const conString = 'postgres://postgres@localhost:5432/kilovolt';
 
 // Mac:
-const conString = 'postgres://localhost:5432/kilovolt';
+// const conString = 'postgres://localhost:5432/kilovolt';
 
 const client = new pg.Client(conString);
 
@@ -40,11 +40,15 @@ app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Diagram number reference: 3
   // It's not a part of CRUD because it relates to the database but in a way operates as 'read' as the rows are being accessed.
+  console.log('here');
+
   client.query('SELECT * FROM articles')
     .then(function(result) {
+      console.log(result.rows)
       response.send(result.rows);
     })
     .catch(function(err) {
+      console.log('ERRORRRRR')
       console.error(err)
     })
 });
