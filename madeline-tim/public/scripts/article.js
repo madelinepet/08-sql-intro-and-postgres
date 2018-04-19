@@ -40,7 +40,6 @@ Article.fetchAll = callback => {
     )
 };
 
-
 // REVIEW: Take a few minutes and review what each of these new methods do in relation to our server and DB
 Article.truncateTable = callback => {
   $.ajax({
@@ -54,6 +53,8 @@ Article.truncateTable = callback => {
 };
 
 Article.prototype.insertRecord = function(callback) {
+  console.log('in insert');
+
   $.post('/articles', {author: this.author, authorUrl: this.authorUrl, body: this.body, category: this.category, publishedOn: this.publishedOn, title: this.title})
     .then(data => {
       console.log(data);
