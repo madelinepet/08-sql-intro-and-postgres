@@ -42,13 +42,13 @@ app.get('/articles', (request, response) => {
   // Diagram number reference: 3
   //this interacts with fetchAll.
   // It's not a part of CRUD because it relates to the database but in a way operates as 'read' as the rows are being accessed.
+  console.log('in route')
   client.query('SELECT * FROM articles')
     .then(function(result) {
       console.log(result.rows)
       response.send(result.rows);
     })
     .catch(function(err) {
-      console.log('ERRORRRRR')
       console.error(err)
     })
 });
