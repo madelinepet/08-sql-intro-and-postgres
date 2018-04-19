@@ -3,11 +3,11 @@
 const faker = require('faker');
 const pg = require('pg');
 
-// Windows/Linux Users:
-const conString = 'postgres://postgres:@localhost:5432/postgres';
+// // Windows/Linux Users:
+// const conString = 'postgres://postgres:@localhost:5432/postgres';
 
 // Mac Users:
-// const conString = 'postgres://localhost:5432/kilovolt';
+const conString = 'postgres://localhost:5432/kilovolt';
 
 const client = new pg.Client(conString);
 

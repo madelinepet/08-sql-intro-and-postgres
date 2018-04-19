@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const pg = require('pg');
 const express = require('express');
 
 const PORT = process.env.PORT || 3000;
@@ -11,9 +12,9 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-// const conString = 'postgres://localhost:5432';
+const conString = 'postgres://localhost:5432';
 
-const client = new pg.Client();
+const client = new pg.Client(conString);
 
 // REVIEW: Use the client object to connect to our DB.
 client.connect();
@@ -28,7 +29,8 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // Diagram number reference: 5
+  // This line of code represents the 'read' aspect of CRUD.
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -36,7 +38,8 @@ app.get('/new', (request, response) => {
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // Diagram number reference: 3
+  // It's not a part of CRUD because it relates to the database but in a way operates as 'read' as the rows are being accessed.
   client.query('')
     .then(function(result) {
       response.send(result.rows);
@@ -48,7 +51,8 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // Diagram number reference: 4
+  // This updates the database using 'INSERT' to log new data.
   client.query(
     `INSERT INTO
     articles(title, author, "authorUrl", category, "publishedOn", body)
@@ -73,7 +77,8 @@ app.post('/articles', (request, response) => {
 
 app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // Diagram number reference: 5
+  //
   client.query(
     ` `, []
   )
@@ -141,7 +146,7 @@ function loadArticles() {
               articles(title, author, "authorUrl", category, "publishedOn", body)
               VALUES ($1, $2, $3, $4, $5, $6);
             `,
-              [ele.title, ele.author, ele.authorUrl, ele.category, ele.publishedOn, ele.body]
+            [ele.title, ele.author, ele.authorUrl, ele.category, ele.publishedOn, ele.body]
             )
           })
         })
