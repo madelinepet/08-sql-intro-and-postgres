@@ -40,7 +40,6 @@ Article.fetchAll = callback => {
     )
 };
 
-
 // REVIEW: Take a few minutes and review what each of these new methods do in relation to our server and DB
 Article.truncateTable = callback => {
   $.ajax({
